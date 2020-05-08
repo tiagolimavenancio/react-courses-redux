@@ -1,7 +1,9 @@
 import { createStore } from "redux";
 
-function reducer() {
-  return [
+const INITIAL_STATE = {
+  activeModule: {},
+  activeLesson: {},
+  modules: [
     {
       id: 1,
       title: "Iniciando com React",
@@ -18,7 +20,20 @@ function reducer() {
         { id: 4, title: "Quarta aula " },
       ],
     },
-  ];
+  ],
+};
+
+function reducer(state = INITIAL_STATE, action) {
+  switch (action.type) {
+    case "TOGGLE_LESSON":
+      return {
+        ...state,
+        activeModule: action.module,
+        activeLesson: action.lesson,
+      };
+    default:
+      return state;
+  }
 }
 
 const store = createStore(reducer);
